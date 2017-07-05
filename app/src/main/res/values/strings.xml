@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+        <!-- Name for the application [CHAR LIMIT=12] -->
+
+        <string name="app_name">Your Daily Habits</string>
+
+        <!-- Label for overflow menu option that inserts fake Habit data into the app [CHAR LIMIT=20] -->
+        <string name="action_insert_dummy_data">Insert Dummy Data</string>
+
+        <!-- Label for overflow menu option that deletes all Habit data in the app [CHAR LIMIT=20] -->
+        <string name="action_delete_all_entries">Delete All Habits</string>
+
+        <!-- Title for the activity to add a new Habit [CHAR LIMIT=20] -->
+        <string name="editor_activity_title_new_habit">Add a Habit</string>
+
+        <!-- Label for editor menu option to save Habit and leave editor [CHAR LIMIT=20] -->
+        <string name="action_save">Save</string>
+
+        <!-- Label for editor overflow menu option that deletes the current Habit [CHAR LIMIT=20] -->
+        <string name="action_delete">Delete</string>
+
+        <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
+        <string name="category_overview">Activity</string>
+
+        <!-- Label for gender information in the editor [CHAR LIMIT=30] -->
+        <string name="category_when">When?</string>
+
+        <!-- Label for duration information in the editor [CHAR LIMIT=30] -->
+        <string name="category_duration">Duration</string>
+
+        <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
+        <string name="hint_habit_name">Habit Name</string>
+
+        <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
+        <string name="hint_habit_minutes">How Many</string>
+
+        <!-- Units for minutes of the Habit (kilograms) [CHAR LIMIT=5] -->
+        <string name="unit_habit_minutes">minutes</string>
+
+        <!-- Label for dropdown menu option if the habit When is morning [CHAR LIMIT=20] -->
+        <string name="when_morning">morning</string>
+
+        <!-- Label for dropdown menu option if the habit When is afternoon [CHAR LIMIT=20] -->
+        <string name="when_afternoon">afternoon</string>
+
+        <!-- Label for dropdown menu option if the habit When is evening [CHAR LIMIT=20] -->
+        <string name="when_evening">evening</string>
+
+</resources>

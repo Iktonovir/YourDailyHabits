@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- These are the options displayed in the When drop-down Spinner -->
+    <string-array name="array_when_options">
+        <item>@string/when_morning</item>
+        <item>@string/when_afternoon</item>
+        <item>@string/when_evening</item>
+    </string-array>
+
+</resources>
+
