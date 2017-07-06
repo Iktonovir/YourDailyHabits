@@ -18,6 +18,7 @@ import com.example.user.yourdailyhabits.data.HabitDbHelper;
 public class CatalogActivity extends AppCompatActivity {
 
     private HabitDbHelper mDbHelper;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,30 +45,27 @@ public class CatalogActivity extends AppCompatActivity {
         displayDatabaseInfo();
     }
 
-
-    private Cursor read() {
-
+    /**
+     * Temporary helper method to display information in the onscreen TextView about the state of the
+     * database.
+     */
+    private void displayDatabaseInfo() {
 
         // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        db = mDbHelper.getReadableDatabase();
 
-
-        String[] projection = {
+        /*
+         * Define a projection that specifies which columns from the database will actually be used
+         * after this query.
+         */
+        String[] projection = new String[]{
                 HabitEntry._ID,
                 HabitEntry.COLUMN_ACTIVITY_NAME,
                 HabitEntry.COLUMN_HAPPENING,
-                HabitEntry.COLUMN_DURATION, };
+                HabitEntry.COLUMN_DURATION,
+        };
 
-        // Perform a query on the habits table
-        Cursor cursor = db.query(
-                HabitEntry.TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null);
-
+        Cursor cursor = readDataBase(projection);
 
         TextView displayView = (TextView) findViewById(R.id.text_view_habit);
 
@@ -75,11 +73,12 @@ public class CatalogActivity extends AppCompatActivity {
             // Create a header in the Text View that looks like this:
             //
             // The habits table contains <number of rows in Cursor> habits.
-            // _id - name - type - day - enjoy
+            // _id - activity - happening - duration
             //
             // In the while loop below, iterate through the rows of the cursor and display
             // the information from each column in this order.
             displayView.setText("The habits table contains " + cursor.getCount() + " habits.\n\n");
+
             displayView.append(HabitEntry._ID + " - " +
                     HabitEntry.COLUMN_ACTIVITY_NAME + " - " +
                     HabitEntry.COLUMN_HAPPENING + " - " +
@@ -93,39 +92,45 @@ public class CatalogActivity extends AppCompatActivity {
 
             // Iterate through all the returned rows in the cursor
             while (cursor.moveToNext()) {
+
                 // Use that index to extract the String or Int value of the word
                 // at the current row the cursor is on.
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentActivity = cursor.getString(activityColumnIndex);
                 String currentWhen = cursor.getString(whenColumnIndex);
                 int currentDuration = cursor.getInt(durationColumnIndex);
+
                 // Display the values from each column of the current row in the cursor in the TextView
                 displayView.append(("\n" + currentID + " - " +
                         currentActivity + " - " +
                         currentWhen + " - " +
                         currentDuration));
             }
+
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
             cursor.close();
         }
-
-        return cursor;
     }
 
+    private Cursor readDataBase(String[] projection) {
 
-    /**
-     * Temporary helper method to display information in the onscreen TextView about the state of
-     * the exercises database.
-     */
-    private void displayDatabaseInfo() {
-        Cursor cursor = read();
+        // query for cursor
+        // Perform a query on the habits table
+        return db.query(
+                HabitEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null);
     }
 
     private void insertHabit(){
         // Gets the database in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db = mDbHelper.getWritableDatabase();
 
         // Create a ContentValues object where column names are the keys,
         // and Toto's habits attributes are the values.
@@ -160,8 +165,8 @@ public class CatalogActivity extends AppCompatActivity {
             case R.id.action_insert_dummy_data:
                 insertHabit();
                 displayDatabaseInfo();
-
                 return true;
+
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
                 // Do nothing for now
